@@ -1,9 +1,9 @@
-// pages/index.tsx or page.tsx
-"use client"
-import { useState } from 'react';
-import TransactionForm from './components/TransactionForm';
+'use client';
 
-export default function Home() {
+import { useState } from 'react';
+import TransactionList from '../components/TransactionList'; // Ensure the correct import path
+
+export default function Transactions() {
   const [refresh, setRefresh] = useState(false);
 
   const handleTransactionAdded = () => {
@@ -12,8 +12,7 @@ export default function Home() {
 
   return (
     <div className="container mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6">Personal Finance Tracker</h1>
-      <TransactionForm onTransactionAdded={handleTransactionAdded} />
+      <TransactionList refresh={refresh} />
     </div>
   );
 }

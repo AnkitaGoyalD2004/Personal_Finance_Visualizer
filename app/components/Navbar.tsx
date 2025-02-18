@@ -19,9 +19,6 @@ const Navbar = () => {
         <Link href="/charts" className="text-gray-600 hover:text-black">
           Charts
         </Link>
-        <Link href="/comparison" className="text-gray-600 hover:text-black">
-          Comparison
-        </Link>
       </div>
     </nav>
   );

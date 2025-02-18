@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import TransactionList from '../components/TransactionList'; // Ensure the correct import path
+import TransactionList from '../components/TransactionList';
 
 export default function Transactions() {
   const [refresh, setRefresh] = useState(false);

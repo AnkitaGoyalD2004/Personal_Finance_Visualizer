@@ -1,3 +1,4 @@
+"use client"
 import { useEffect, useState } from 'react';
 
 const TransactionList = ({ refresh, onUpdate }: { refresh: boolean; onUpdate: () => void }) => {
@@ -37,16 +38,21 @@ const TransactionList = ({ refresh, onUpdate }: { refresh: boolean; onUpdate: ()
   return (
     <div className="space-y-4">
       {transactions.map((transaction: any) => (
-        <div key={transaction._id} className="p-4 border border-gray-300 rounded-md">
-          <p>
-            <strong>{transaction.description}</strong>
-          </p>
-          <p>Amount: ${transaction.amount}</p>
-          <p>Date: {new Date(transaction.date).toLocaleDateString()}</p>
-          <p>Category: {transaction.category}</p>
+        <div
+          key={transaction._id}
+          className="p-4 border border-gray-300 rounded-md flex items-center justify-between"
+        >
+          <div>
+            <p>
+              <strong>{transaction.description}</strong>
+            </p>
+            <p>Amount: ${transaction.amount}</p>
+            <p>Date: {new Date(transaction.date).toLocaleDateString()}</p>
+            <p>Category: {transaction.category}</p>
+          </div>
           <button
             onClick={() => handleDelete(transaction._id)}
-            className="mt-2 px-4 py-2 bg-red-500 text-white rounded-md"
+            className="px-3 py-1 bg-red-500 text-white rounded-md"
           >
             Delete
           </button>

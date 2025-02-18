@@ -1,4 +1,3 @@
-// pages/index.tsx or page.tsx
 "use client"
 import { useState } from 'react';
 import TransactionForm from './components/TransactionForm';
@@ -12,7 +11,7 @@ export default function Home() {
 
   return (
     <div className="container mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6">Personal Finance Tracker</h1>
+      <h1 className="text-3xl text-center font-bold mb-6">Personal Finance Tracker</h1>
       <TransactionForm onTransactionAdded={handleTransactionAdded} />
     </div>
   );

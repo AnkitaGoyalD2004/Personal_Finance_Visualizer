@@ -3,8 +3,15 @@
 import { useEffect, useState } from 'react';
 import { Bar, BarChart, CartesianGrid, Cell, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
-// Define colors for bars
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#FF6347', '#C71585', '#FFD700'];
+// Define colors for categories
+const CATEGORY_COLORS: { [key: string]: string } = {
+  Food: '#FF6347',
+  Entertainment: '#0088FE',
+  Transport: '#00C49F',
+  Shopping: '#FFBB28',
+  Bills: '#FF8042',
+  Health: '#C71585'
+};
 
 const Charts = () => {
   const [transactions, setTransactions] = useState<any[]>([]);
@@ -13,7 +20,7 @@ const Charts = () => {
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
-        const res = await fetch('/api/transactions');  // Fetch from API
+        const res = await fetch('/api/transactions'); // Fetch from API
         if (!res.ok) throw new Error('Failed to fetch transactions');
         const data = await res.json();
 
@@ -60,34 +67,31 @@ const Charts = () => {
   const barData = getCategoryData(); // Get data before rendering
 
   return (
-    <div className="p-4">
-      <h2 className="text-2xl font-bold mb-6">Charts</h2>
+    <div className="p-6 flex flex-col items-center">
+      <h2 className="text-2xl font-bold mb-6">Expense Breakdown</h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Category-wise Bar Chart */}
-        <div>
-          <h3 className="text-xl mb-4">Category-wise Expenses</h3>
+      <div className="w-full max-w-3xl bg-white shadow-lg rounded-lg p-6">
+        <h3 className="text-xl mb-4 text-center">Category-wise Expenses</h3>
 
-          {loading ? (
-            <p>Loading data...</p> // Show loading while fetching
-          ) : barData.length > 0 ? (
-            <ResponsiveContainer width="100%" height={300}>
-              <BarChart data={barData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="category" />
-                <YAxis />
-                <Tooltip formatter={(value, name, props) => [`₹${value}`, `Date: ${props.payload.date}`]} />
-                <Bar dataKey="totalAmount" fill="#8884d8">
-                  {barData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                  ))}
-                </Bar>
-              </BarChart>
-            </ResponsiveContainer>
-          ) : (
-            <p>No data available to display the chart</p>
-          )}
-        </div>
+        {loading ? (
+          <p className="text-center">Loading data...</p> // Show loading while fetching
+        ) : barData.length > 0 ? (
+          <ResponsiveContainer width="100%" height={350}>
+            <BarChart data={barData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="category" />
+              <YAxis />
+              <Tooltip formatter={(value, name, props) => [`₹${value}`, `Date: ${props.payload.date}`]} />
+              <Bar dataKey="totalAmount">
+  {barData.map((entry: any, index) => (
+    <Cell key={`cell-${index}`} fill={CATEGORY_COLORS[entry?.category?.toString() || 'Other']} />
+  ))}
+</Bar>
+            </BarChart>
+          </ResponsiveContainer>
+        ) : (
+          <p className="text-center">No data available to display the chart</p>
+        )}
       </div>
     </div>
   );

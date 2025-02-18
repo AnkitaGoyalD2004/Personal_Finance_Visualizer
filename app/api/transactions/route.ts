@@ -74,3 +74,17 @@ export async function DELETE(req: Request) {
     return new Response('Error deleting transaction', { status: 500 });
   }
 }
+
+const fetchData = async () => {
+  try {
+    const res = await fetch('/api/your-endpoint');
+    if (!res.ok) {
+      const errorText = await res.text(); // Get the response text for debugging
+      throw new Error(`HTTP error! status: ${res.status}, response: ${errorText}`);
+    }
+    const data = await res.json();
+    // Process data...
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+};

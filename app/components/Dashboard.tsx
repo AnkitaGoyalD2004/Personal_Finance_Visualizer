@@ -1,14 +1,16 @@
-// File: components/Dashboard.tsx
-
 'use client';
 
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts';
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#FF6347', '#C71585', '#FFD700'];
 
-const Dashboard = () => {
-  const [transactions, setTransactions] = useState<any[]>([]);
+interface DashboardProps {
+  transactions: any[]; 
+  budgets: any[]; 
+}
+
+const Dashboard: React.FC<DashboardProps> = ({ transactions, budgets }) => {
   const [totalExpenses, setTotalExpenses] = useState(0);
   const [categoryData, setCategoryData] = useState<any[]>([]);
   const [recentTransactions, setRecentTransactions] = useState<any[]>([]);
@@ -18,7 +20,7 @@ const Dashboard = () => {
       try {
         const res = await fetch('/api/transactions');
         const data = await res.json();
-        setTransactions(data);
+        setRecentTransactions(data);
 
         // Calculate total expenses
         const total = data.reduce((acc: number, transaction: any) => acc + transaction.amount, 0);

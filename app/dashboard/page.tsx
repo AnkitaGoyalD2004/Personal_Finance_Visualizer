@@ -1,11 +1,8 @@
-// File: app/dashboard/page.tsx
-
-import Dashboard from '../components/Dashboard'; // Import the existing Dashboard component
-
+import Dashboard from '../components/Dashboard';
 const DashboardPage = () => {
   return (
     <div>
-      <Dashboard />
+      <Dashboard transactions={[]} budgets={[]} />
     </div>
   );
 };

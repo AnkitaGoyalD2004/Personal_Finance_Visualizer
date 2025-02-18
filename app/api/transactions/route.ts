@@ -35,7 +35,7 @@ export async function POST(req: Request) {
       amount,
       date,
       description,
-      category, // Store category
+      category,
     });
 
     // Save the new transaction to the database
@@ -46,5 +46,31 @@ export async function POST(req: Request) {
   } catch (error) {
     // If there's an error, return a 500 response with an error message
     return new Response('Error adding transaction', { status: 500 });
+  }
+}
+
+// DELETE transaction by ID
+export async function DELETE(req: Request) {
+  try {
+    // Connect to the database
+    await connectToDatabase();
+
+    // Extract transaction ID from the request body
+    const { id } = await req.json();
+
+    if (!id) {
+      return new Response('Transaction ID is required', { status: 400 });
+    }
+
+    // Find and delete the transaction
+    const deletedTransaction = await Transaction.findByIdAndDelete(id);
+
+    if (!deletedTransaction) {
+      return new Response('Transaction not found', { status: 404 });
+    }
+
+    return new Response('Transaction deleted successfully', { status: 200 });
+  } catch (error) {
+    return new Response('Error deleting transaction', { status: 500 });
   }
 }

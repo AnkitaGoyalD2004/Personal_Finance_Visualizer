@@ -6,13 +6,14 @@ import TransactionList from '../components/TransactionList'; // Ensure the corre
 export default function Transactions() {
   const [refresh, setRefresh] = useState(false);
 
-  const handleTransactionAdded = () => {
-    setRefresh(!refresh); // Toggle refresh state to trigger re-fetch of transactions
+  const handleTransactionUpdated = () => {
+    setRefresh(!refresh); // Toggle refresh state to trigger re-fetch
   };
 
   return (
     <div className="container mx-auto p-6">
-      <TransactionList refresh={refresh} />
+      {/* Pass handleTransactionUpdated to trigger re-fetch after add or delete */}
+      <TransactionList refresh={refresh} onUpdate={handleTransactionUpdated} />
     </div>
   );
 }

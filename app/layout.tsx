@@ -25,7 +25,10 @@ export default function RootLayout({
             {/* Navbar */}
             <Navbar />
             {/* Main Content */}
-            <main className="flex-1 p-6 overflow-auto">{children}</main>
+            <main className="flex-1 p-6 overflow-auto">
+              {/* Add logic to render Dashboard page */}
+              {children}
+            </main>
           </div>
         </div>
       </body>
